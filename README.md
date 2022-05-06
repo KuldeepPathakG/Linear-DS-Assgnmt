@@ -305,68 +305,31 @@ stk.show()
 
 
 Question-10::
-class Stack:
- 
-    # create empty list
-    def __init__(self):
-        self.Elements = []
-         
-    # push() for insert an element
-    def push(self, value):
-        self.Elements.append(value)
-       
-    # pop() for remove an element
-    def pop(self):
-        return self.Elements.pop()
-     
-    # empty() check the stack is empty of not
-    def empty(self):
-        return self.Elements == []
-     
-    # show() display stack
-    def show(self):
-        for value in reversed(self.Elements):
-            print(value)
- 
-# Insert_Bottom() insert value at bottom
-def BottomInsert(s, value):
-   
-    # check the stack is empty or not
-    if s.empty():
-         
-        # if stack is empty then call
-        # push() method.
-        s.push(value)
-         
-    # if stack is not empty then execute
-    # else block
-    else:
-        popped = s.pop()
-        BottomInsert(s, value)
-        s.push(popped)
- 
-# Reverse() reverse the stack
-def Reverse(s):
-    if s.empty():
-        pass
-    else:
-        popped = s.pop()
-        Reverse(s)
-        BottomInsert(s, popped)
- 
- 
-# create object of stack class
-stk = Stack()
- 
-stk.push(1)
-stk.push(2)
-stk.push(3)
-stk.push(4)
-stk.push(5)
- 
-print("Original Stack")
-stk.show()
- 
-print("\nStack after Reversing")
-Reverse(stk)
-stk.show()
+class MinStack(object):
+   min=float('inf')
+   def __init__(self):
+      self.min=float('inf')
+      self.stack = []
+   def push(self, x):
+      if x<=self.min:
+         self.stack.append(self.min)
+         self.min = x
+      self.stack.append(x)
+   def pop(self):
+      t = self.stack[-1]
+      self.stack.pop()
+      if self.min == t:
+         self.min = self.stack[-1]
+         self.stack.pop()
+   def top(self):
+      return self.stack[-1]
+   def getMin(self):
+      return self.min
+m = MinStack()
+m.push(-2)
+m.push(0)
+m.push(-3)
+print(m.getMin())
+m.pop()
+print(m.top())
+print(m.getMin())
